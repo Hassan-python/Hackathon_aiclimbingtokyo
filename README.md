@@ -8,14 +8,12 @@
 
 1. 概要
 2. システム全体像
-3. フォルダ構成
-4. 技術スタック
-5. セットアップ & ローカル開発
-6. 環境変数 / シークレット
-7. デプロイ（GCP Cloud Run / Netlify）
-8. トラブルシューティング & 予防策
-9. 今後想定されるバグと対策
-10. 変更履歴（ハイライト）
+3. 利用技術・サービス
+4. セットアップ & ローカル開発
+5. 環境変数 / シークレット
+6. デプロイ（GCP Cloud Run / Netlify）
+7. トラブルシューティング & 予防策
+8. 今後想定されるバグと対策
 
 ---
 
@@ -146,48 +144,50 @@ flowchart TD
 
 ---
 
-## 3. フォルダ構成 📁
+## 3. 利用技術・サービス 🛠️
 
-```mermaid
-journey
-  title Project Folder Flow
-  section Root
-    src        : UI / Hooks / API サービス
-    gcp_config : Dockerfile / Cloud Build / Infra
-    public     : 静的アセット & リダイレクト
-    rewrite    : 仕様書・設計ドキュメント
-    bk_main.py : バックアップスクリプト
-```
+このアプリケーションは、以下の最新技術・サービスを組み合わせて構築されています：
 
-<details>
-<summary>主要サブディレクトリ</summary>
+### ウェブサイト（フロントエンド）
 
-| パス              | 主な内容                                                            |
-| ----------------- | ------------------------------------------------------------------- |
-| `src/components`  | React UI コンポーネント群                                           |
-| `src/api`         | axios ラッパー / 型安全 API コール                                  |
-| `src/i18n`        | i18next 設定 & 翻訳ファイル                                         |
-| `gcp_config`      | Cloud Run デプロイ関連（Dockerfile, cloudbuild.yaml, main.py など） |
-| `public/redirect` | Instagram UTM 付きリダイレクトページ                                |
-| `rewrite/`        | 要件定義・技術メモ・改善案                                          |
+- **React & TypeScript**: モダンなユーザーインターフェース開発
+- **TailwindCSS**: レスポンシブで美しいデザイン
+- **PWA 対応**: スマートフォンでアプリのように使用可能
+- **多言語対応**: 日本語・英語に対応
 
-</details>
+### サーバー（バックエンド）
+
+- **FastAPI**: 高速な API サーバー
+- **FFmpeg**: 動画の処理・変換
+- **HTTP/2 対応**: 高速な通信
+
+### AI・機械学習
+
+- **Google Gemini Pro**: Google の最新 AI 技術による動画解析
+- **OpenAI GPT-4o**: バックアップ AI（万が一の場合）
+- **ChromaDB**: AI が学習したクライミング知識の保存
+
+### クラウドサービス（Google Cloud Platform）
+
+- **Cloud Run**: サーバーの実行環境
+- **Cloud Storage**: 動画ファイルの安全な保存
+- **Cloud Build**: 自動デプロイ機能
+- **Secret Manager**: 重要な設定情報の管理
+
+### 配信・ホスティング
+
+- **Netlify**: 高速なウェブサイト配信
+- **CDN**: 世界中のユーザーに高速でコンテンツを届ける
+
+### その他の特徴
+
+- **セキュリティ**: 暗号化通信（HTTPS）とアクセス制御
+- **パフォーマンス**: 動画処理の最適化と高速レスポンス
+- **可用性**: 複数リージョンでの冗長化
 
 ---
 
-## 4. 技術スタック 🛠️
-
-| レイヤ         | 技術                                                                                 | 補足                    |
-| -------------- | ------------------------------------------------------------------------------------ | ----------------------- |
-| フロントエンド | React 18, TypeScript 5, Vite 5, TailwindCSS 3, i18next, lucide-react, react-toastify | PWA & SEO 最適化済み    |
-| バックエンド   | FastAPI, Hypercorn(ASGI) + HTTP/2, Pydantic v2                                       | FFmpeg による動画最適化 |
-| AI / DB        | Google Gemini Pro, OpenAI GPT-4o (バックアップ), ChromaDB + LangChain                | ベクトル検索            |
-| インフラ       | Google Cloud Run, Artifact Registry, Cloud Build, Google Cloud Storage               | Asia-Northeast1         |
-| CI/CD          | Netlify CLI, GitHub Actions(予定)                                                    | フロント自動デプロイ    |
-
----
-
-## 5. セットアップ & ローカル開発 🖥️
+## 4. セットアップ & ローカル開発 🖥️
 
 ### 前提
 
@@ -217,7 +217,7 @@ $env:PATH = [System.Environment]::GetEnvironmentVariable('PATH','Machine') + ';'
 
 ---
 
-## 6. 環境変数 / シークレット 🔑
+## 5. 環境変数 / シークレット 🔑
 
 | 変数               | 用途                                | 例                       | 備考                |
 | ------------------ | ----------------------------------- | ------------------------ | ------------------- |
@@ -229,13 +229,12 @@ $env:PATH = [System.Environment]::GetEnvironmentVariable('PATH','Machine') + ';'
 | `PHASE`            | デプロイフェーズ                    | `2`                      | Blue-Green 等に使用 |
 | `CHROMA_DB_URL`\*  | ChromaDB 接続 URL                   | `https://...`            | Secret Manager      |
 | `GEMINI_API_KEY`\* | Gemini API キー                     | `AIz...`                 | Secret Manager      |
-| `OPENAI_API_KEY`\* | GPT-4o キー                         | `sk-...`                 | (fallback)          |
 
 `*` は **Google Secret Manager** を使用し `run services update --update-secrets` で注入します。
 
 ---
 
-## 7. デプロイ 🚀
+## 6. デプロイ 🚀
 
 ### Cloud Run (Backend)
 
@@ -264,7 +263,7 @@ netlify deploy --prod --dir=dist   # PWA & SEO 最適化済み
 
 ---
 
-## 8. トラブルシューティング & 予防策 🩹
+## 7. トラブルシューティング & 予防策 🩹
 
 | 症状                              | 原因 / ログ                            | 即時対処                                                                    | 恒久対策                                     |
 | --------------------------------- | -------------------------------------- | --------------------------------------------------------------------------- | -------------------------------------------- |
@@ -276,7 +275,7 @@ netlify deploy --prod --dir=dist   # PWA & SEO 最適化済み
 
 ---
 
-## 9. 今後想定されるバグと対策 🔮
+## 8. 今後想定されるバグと対策 🔮
 
 1. **ChromaDB スキーマ不整合**
    - 想定: ドキュメント構造変更 ➜ embedding 失敗
@@ -293,18 +292,6 @@ netlify deploy --prod --dir=dist   # PWA & SEO 最適化済み
 5. **HTTP/2 ALPN ミスマッチ**
    - 想定: Chrome アップデート後 0-RTT 失敗
    - 対策: Hypercorn を `--http2 --tls` へ切替、ALB を経由しない構成を準備。
-
----
-
-## 10. 変更履歴（ハイライト） 📝
-
-- **2025-06-23** 範囲分析バグ修正 & README 再生成 (本ファイル)
-- **2025-06-07** HTTP/2 対応 & ブランド刷新 (PWA/SEO)
-- **2025-01-02** フル動画＋範囲指定分析 / 多言語化 / モバイル最適化
-- **2024-12-23** ChromaDB 知識ベース完全更新 & Gemini バグ修正
-- **2024-12-19** Instagram リダイレクト & UTM 追跡機能
-
-> 詳細な差分・過去の設計資料は `rewrite/` とリリースノート (`20250623_README.md` など) を参照してください。
 
 ---
 
