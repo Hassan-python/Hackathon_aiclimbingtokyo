@@ -1,0 +1,174 @@
+{
+  "header": {
+    "title": "AI Climbing Tokyo"
+  },
+  "uploader": {
+    "title": "動画をアップロード",
+    "description": "MP4, MOV などの動画ファイル (6秒未満)",
+    "processing": "動画を処理中...",
+    "compressing": "動画を圧縮中...",
+    "complete": "処理完了！",
+    "error": {
+      "title": "エラー",
+      "videoOnly": "アップロードできるのは動画ファイルのみです。",
+      "duration": "6秒未満の動画のみアップロード可能です。",
+      "generic": "動画の読み込み中にエラーが発生しました。"
+    }
+  },
+  "analysis": {
+    "title": "分析設定",
+    "noVideo": "動画をアップロードしてください",
+    "duration": "動画の長さ: {{duration}} 秒",
+    "problemType": {
+      "label": "課題の種類 (例: スラブ、強傾斜)",
+      "placeholder": "課題の種類を入力"
+    },
+    "crux": {
+      "label": "難しいと感じるポイント (例: 〇〇へのデッド)",
+      "description": "詳細に記載することで、より具体的なアドバイスを生成できます。ホールドの特徴、体勢、動作などを具体的に書いてみましょう。",
+      "placeholder": "例: 右手のピンチホールドから左手のスローパーへの持ち替えが難しい。体が左に振られてしまい、次の手が届かない。"
+    },
+    "startTime": {
+      "label": "分析開始時間 (秒)",
+      "seconds": "秒"
+    },
+    "button": {
+      "start": "分析を開始",
+      "analyzing": "分析中..."
+    }
+  },
+  "result": {
+    "title": "AI からのアドバイス",
+    "loading": "分析結果を読み込み中...",
+    "complete": "分析が完了しました！"
+  },
+  "settings": {
+    "title": "設定",
+    "debugMode": "デバッグモード",
+    "apiKeys": {
+      "title": "API Keys",
+      "gemini": "Gemini API Key"
+    }
+  },
+  "debug": {
+    "progress": {
+      "title": "処理状況",
+      "videoUpload": "動画アップロード完了",
+      "frameExtraction": "フレーム抽出完了",
+      "geminiAnalysis": "Gemini 分析完了",
+      "adviceGeneration": "アドバイス生成完了"
+    },
+    "retrievedKnowledge": {
+      "title": "取得した知識 (デバッグ用)"
+    },
+    "geminiAnalysis": {
+      "title": "Gemini 分析結果 (デバッグ用)"
+    },
+    "sources": {
+      "title": "参照した知識ソース (デバッグ用)",
+      "source": "ソース"
+    },
+    "references": {
+      "title": "参照文献"
+    },
+    "chromaStatus": {
+      "title": "ChromaDB 接続状態",
+      "checking": "ChromaDB 接続を確認中...",
+      "refresh": "接続状態を更新"
+    }
+  },
+  "errors": {
+    "uploadVideo": "動画が選択されていません",
+    "unexpectedError": "分析中に予期せぬエラーが発生しました"
+  },
+  "newFeature": {
+    "common": {
+      "newFeature": "新機能",
+      "fullVideoUpload": "フル動画アップロード",
+      "rangeAnalysis": "範囲解析",
+      "videoPreview": "動画プレビュー",
+      "rangeSelection": "範囲選択",
+      "processing": "処理中",
+      "complete": "完了",
+      "error": "エラー",
+      "retry": "再試行",
+      "cancel": "キャンセル"
+    },
+    "fullUploader": {
+      "title": "フル動画アップロード（新機能）",
+      "description": "動画をドラッグ&ドロップまたはクリックしてアップロード",
+      "constraints": {
+        "duration": "30秒以内・100MB以下",
+        "optimization": "自動圧縮・最適化"
+      },
+      "progress": {
+        "uploading": "アップロード中",
+        "optimizing": "動画を最適化中",
+        "finishing": "仕上げ中",
+        "complete": "完了"
+      },
+      "status": {
+        "complete": "アップロード完了！",
+        "processing": "処理中..."
+      },
+      "errors": {
+        "fileSize": "ファイルサイズが制限を超えています。100MB以下のファイルを選択してください。（現在: {{currentSize}}）",
+        "fileType": "動画ファイルのみアップロード可能です。",
+        "uploadFailed": "アップロードに失敗しました",
+        "networkError": "ネットワークエラーが発生しました。しばらく待ってから再試行してください。",
+        "serviceUnavailable": "サービスが一時的に利用できません。しばらく待ってから再試行してください。"
+      }
+    },
+    "rangeAnalysis": {
+      "title": "範囲解析設定（新機能）",
+      "rangeInfo": "選択範囲: {{start}}s - {{end}}s （{{duration}}秒間）",
+      "form": {
+        "problemType": {
+          "label": "課題の種類",
+          "placeholder": "選択してください",
+          "options": {
+            "slab": "スラブ",
+            "vertical": "垂壁",
+            "overhang": "オーバーハング",
+            "roof": "ルーフ",
+            "mantle": "マントル",
+            "dyno": "ダイノ",
+            "lunge": "ランジ",
+            "deadpoint": "デッド",
+            "other": "その他"
+          }
+        },
+        "crux": {
+          "label": "難しい部分・つまずいている点",
+          "placeholder": "例：マントルムーブで足を上げられない、ホールドが取れない、バランスが崩れる など"
+        },
+        "submit": "範囲解析を開始"
+      },
+      "progress": {
+        "uploading": "アップロード中...",
+        "compression": "動画最適化中...",
+        "analysis": "AI解析中..."
+      },
+      "noVideo": "まず動画をアップロードしてください"
+    },
+    "rangeSelector": {
+      "title": "解析範囲選択 (最大{{maxDuration}}秒)",
+      "mobileOptimized": "モバイル最適化UI使用中",
+      "metadata": {
+        "compressionRatio": "圧縮率: {{ratio}}%"
+      },
+      "controls": {
+        "play": "再生",
+        "pause": "一時停止",
+        "reset": "リセット",
+        "speed": "再生速度"
+      },
+      "timeInfo": {
+        "start": "開始: {{time}}",
+        "end": "終了: {{time}}",
+        "range": "範囲: {{duration}}s",
+        "current": "現在: {{time}}"
+      }
+    }
+  }
+}

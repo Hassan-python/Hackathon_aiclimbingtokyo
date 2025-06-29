@@ -1,0 +1,25 @@
+{
+  "file_hashes": {
+    "basic_moves.txt": {
+      "hash": "de0bcd6da35f5428bf138c061550aa20",
+      "mtime": 1746242792.9582355,
+      "size": 280
+    },
+    "basic_skills.txt": {
+      "hash": "d74ac5e785b20a90e5871b1cd9153f93",
+      "mtime": 1746242793.0045266,
+      "size": 22164
+    },
+    "common_mistakes.txt": {
+      "hash": "17623d0b160719cd5dbbd856712f54b4",
+      "mtime": 1746242793.04646,
+      "size": 256
+    },
+    "training_tips.txt": {
+      "hash": "5ba9ed6c7b15c57209ecca2160fccb8a",
+      "mtime": 1746242793.0890431,
+      "size": 256
+    }
+  },
+  "last_file_check": "2025-06-15T19:17:28.060422"
+}

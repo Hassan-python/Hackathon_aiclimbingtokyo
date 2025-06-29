@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>リダイレクト中…</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="refresh" content="0; URL=/?utm_source=instagram&utm_medium=social&utm_campaign=default&utm_content=default">
+  
+  <!-- 管理者アクセス除外機能 -->
+  <script>
+  (function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('exclude_me') === 'true') {
+      // クッキーを1年間有効に設定
+      document.cookie = "exclude_me=true; path=/; max-age=" + 60 * 60 * 24 * 365 + "; SameSite=Lax";
+      // パラメータ付きURLをクリーンにリダイレクト（オプション）
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  })();
+  </script>
+
+  <!-- GA4タグ（管理者除外機能付き） -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G7068FMDDJ"></script>
+  <script>
+    // 管理者除外Cookie確認後にGA4を初期化
+    if (document.cookie.indexOf("exclude_me=true") === -1) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-G7068FMDDJ');
+    }
+  </script>
+</head>
+<body>
+  <p>Instagram Storyからのアクセスを確認中です…数秒お待ちください。</p>
+  <script>
+    // ルートドメインを取得
+    const rootUrl = window.location.origin;
+    const targetUrl = rootUrl + "/?utm_source=instagram&utm_medium=social&utm_campaign=default&utm_content=default";
+    
+    // 管理者除外チェック後にリダイレクト実行
+    if (document.cookie.indexOf("exclude_me=true") !== -1) {
+      // 除外対象の場合はGA4なしで直接リダイレクト
+      window.location.href = targetUrl;
+    } else {
+      // GA4トラッキング後にリダイレクト
+      setTimeout(function() {
+        window.location.href = targetUrl;
+      }, 200);
+    }
+  </script>
+</body>
+</html> 

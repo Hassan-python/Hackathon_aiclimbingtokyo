@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-gray-900 to-gray-950;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23111827' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+}
+
+@layer components {
+  .neo-brutalism {
+    @apply relative overflow-hidden rounded-lg border-2 border-gray-800 bg-gradient-to-br from-gray-800 to-gray-900 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none;
+  }
+
+  .tokyo-card {
+    @apply rounded-lg border border-emerald-500/20 bg-gray-900/90 p-6 shadow-lg backdrop-blur-sm;
+  }
+
+  .tokyo-button {
+    @apply relative overflow-hidden rounded-lg bg-emerald-600 px-6 py-3 font-medium text-white transition-all hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-gray-900 active:scale-95;
+  }
+
+  .tokyo-input {
+    @apply block w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-3 text-gray-100 placeholder-gray-400 shadow-sm transition-colors focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500;
+  }
+
+  .tokyo-select {
+    @apply block w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-3 text-gray-100 shadow-sm transition-colors focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500;
+  }
+
+  .tokyo-range {
+    @apply h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-700;
+  }
+
+  .tokyo-range::-webkit-slider-thumb {
+    @apply h-4 w-4 appearance-none rounded-full bg-emerald-500 transition-all hover:scale-110;
+  }
+
+  .tokyo-progress {
+    @apply h-2 rounded-full bg-gray-700;
+  }
+
+  .tokyo-progress-fill {
+    @apply h-full rounded-full bg-gradient-to-r from-emerald-500 to-emerald-600 transition-all duration-300;
+  }
+
+  .tokyo-label {
+    @apply mb-2 block text-sm font-medium text-gray-300;
+  }
+
+  .tokyo-text {
+    @apply text-gray-300;
+  }
+
+  .tokyo-heading {
+    @apply bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent;
+  }
+}
+
+/* Custom animations */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(16, 185, 129, 0.2),
+                0 0 10px rgba(16, 185, 129, 0.2),
+                0 0 15px rgba(16, 185, 129, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.5),
+                0 0 20px rgba(16, 185, 129, 0.3),
+                0 0 30px rgba(16, 185, 129, 0.2);
+  }
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .touch-manipulation {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Performance optimizations */
+* {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}

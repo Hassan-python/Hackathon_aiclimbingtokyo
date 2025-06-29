@@ -1,0 +1,7 @@
+# Instagram流入トラッキング用リダイレクト
+/redirect/insta/     /redirect/insta/index.html    200
+/redirect/story/     /redirect/story/index.html    200
+/redirect/dm/        /redirect/dm/index.html       200
+
+# SPA用の設定（すべての他のルートをindex.htmlにリダイレクト）
+/*    /index.html   200 

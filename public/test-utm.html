@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UTM & GA4 テストページ</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f9fafb;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #10b981;
+      margin-bottom: 30px;
+    }
+    .test-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+    }
+    .test-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .test-link {
+      display: inline-block;
+      padding: 10px 15px;
+      background-color: #10b981;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.2s;
+    }
+    .test-link:hover {
+      background-color: #059669;
+    }
+    .exclude-link {
+      background-color: #ef4444;
+    }
+    .exclude-link:hover {
+      background-color: #dc2626;
+    }
+    .info {
+      background-color: #f0f9ff;
+      border: 1px solid #0ea5e9;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+    .current-params {
+      background-color: #f3f4f6;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: monospace;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧪 UTM & GA4 テストページ</h1>
+    
+    <div class="test-section">
+      <h2>📱 Instagram リダイレクトテスト</h2>
+      <p>以下のリンクをクリックして、リダイレクトとUTMパラメータが正しく動作するかテストしてください：</p>
+      <div class="test-links">
+        <a href="/redirect/insta/" class="test-link">📸 Instagram Bio Link (/redirect/insta/)</a>
+        <a href="/redirect/story/" class="test-link">📖 Instagram Story Link (/redirect/story/)</a>
+        <a href="/redirect/dm/" class="test-link">💬 Instagram DM Link (/redirect/dm/)</a>
+      </div>
+    </div>
+
+    <div class="test-section">
+      <h2>🚫 管理者除外機能テスト</h2>
+      <p>以下のリンクをクリックすると、GA4トラッキングから除外されます：</p>
+      <div class="test-links">
+        <a href="/?exclude_me=true" class="test-link exclude-link">🔒 管理者除外モードを有効化</a>
+        <a href="/redirect/insta/?exclude_me=true" class="test-link exclude-link">🔒 Instagram リダイレクト + 管理者除外</a>
+      </div>
+      <div class="info">
+        <strong>注意:</strong> 除外モードを有効にすると、このブラウザからのアクセスはGA4で記録されなくなります。
+        解除するには、ブラウザの開発者ツールで以下のコードを実行してください：<br>
+        <code>document.cookie = "exclude_me=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"</code>
+      </div>
+    </div>
+
+    <div class="test-section">
+      <h2>📊 現在のURLパラメータ</h2>
+      <div class="current-params" id="current-params">
+        読み込み中...
+      </div>
+    </div>
+
+    <div class="test-section">
+      <h2>🍪 現在のCookie状態</h2>
+      <div class="current-params" id="cookie-status">
+        読み込み中...
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 現在のURLパラメータを表示
+    function displayCurrentParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const paramsDiv = document.getElementById('current-params');
+      
+      if (urlParams.toString()) {
+        let paramsText = 'URL: ' + window.location.href + '\n\n';
+        paramsText += 'UTMパラメータ:\n';
+        for (const [key, value] of urlParams) {
+          paramsText += `  ${key}: ${value}\n`;
+        }
+        paramsDiv.textContent = paramsText;
+      } else {
+        paramsDiv.textContent = 'URLパラメータはありません';
+      }
+    }
+
+    // Cookie状態を表示
+    function displayCookieStatus() {
+      const cookieDiv = document.getElementById('cookie-status');
+      const excludeCookie = document.cookie.indexOf("exclude_me=true") !== -1;
+      
+      if (excludeCookie) {
+        cookieDiv.textContent = '🚫 管理者除外モード: 有効\nGA4トラッキングは無効化されています';
+        cookieDiv.style.backgroundColor = '#fee2e2';
+        cookieDiv.style.border = '1px solid #ef4444';
+      } else {
+        cookieDiv.textContent = '✅ 通常モード: GA4トラッキングが有効です';
+        cookieDiv.style.backgroundColor = '#f0fdf4';
+        cookieDiv.style.border = '1px solid #10b981';
+      }
+    }
+
+    // ページ読み込み時に実行
+    document.addEventListener('DOMContentLoaded', function() {
+      displayCurrentParams();
+      displayCookieStatus();
+    });
+  </script>
+</body>
+</html> 

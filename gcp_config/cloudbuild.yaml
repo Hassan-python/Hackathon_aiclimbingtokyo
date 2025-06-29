@@ -1,0 +1,48 @@
+steps:
+  # Phase 2: Build Docker image using Cloud Build
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build',
+      '-t', 'asia-northeast1-docker.pkg.dev/$PROJECT_ID/climbing-repo/climbing-web-app-bolt',
+      '--progress=plain',
+      '-f', 'Dockerfile',
+      '.'
+    ]
+    timeout: 900s
+
+  # Phase 2: Push Docker image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'push',
+      'asia-northeast1-docker.pkg.dev/$PROJECT_ID/climbing-repo/climbing-web-app-bolt'
+    ]
+    timeout: 600s
+
+  # Phase 2: Deploy to Cloud Run with enhanced settings
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: [
+      'run', 'deploy', 'climbing-web-app-bolt',
+      '--image', 'asia-northeast1-docker.pkg.dev/$PROJECT_ID/climbing-repo/climbing-web-app-bolt',
+      '--platform', 'managed',
+      '--region', 'asia-northeast1',
+      '--allow-unauthenticated',
+      '--port', '8000',
+      '--memory', '4Gi',
+      '--cpu', '2',
+      '--max-instances', '10',
+      '--timeout', '900',
+      '--concurrency', '10',
+      '--set-env-vars', 'MEMORY_LIMIT=4096M,REQUEST_TIMEOUT=900,PHASE=2,MAX_FILE_SIZE=100MB,GCS_BUCKET_NAME=climbing-videos-bucket-climbing-application-458609,GEMINI_API_KEY=AIzaSyB0C91yz1GUJ1BV9S7trwFWLrWn_tajcrc,GOOGLE_API_KEY=AIzaSyB0C91yz1GUJ1BV9S7trwFWLrWn_tajcrc,CHROMA_DB_URL=https://chroma-service-932280363930.asia-northeast1.run.app,CHROMA_COLLECTION_NAME=bouldering_advice,EMBEDDING_MODEL=models/embedding-001,LOG_LEVEL=INFO,HTTP2_ENABLED=true,MAX_REQUEST_SIZE=104857600'
+    ]
+    timeout: 900s
+
+# Phase 2: Enhanced timeout for video processing
+timeout: 2400s
+
+options:
+  # Phase 2: Use high-CPU machine for video processing
+  machineType: 'E2_HIGHCPU_8'
+  logging: CLOUD_LOGGING_ONLY
+  
+images:
+  - 'asia-northeast1-docker.pkg.dev/$PROJECT_ID/climbing-repo/climbing-web-app-bolt' 

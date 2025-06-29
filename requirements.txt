@@ -1,0 +1,12 @@
+fastapi==0.110.0
+uvicorn==0.27.1
+hypercorn[h2]>=0.17.3
+python-multipart==0.0.9
+moviepy==1.0.3
+opencv-python-headless==4.9.0.80
+chromadb==1.0.8
+google-generativeai~=0.7.0
+python-dotenv==1.0.1
+langchain==0.1.9
+langchain-openai==0.0.8
+Pillow==10.2.0
