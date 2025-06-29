@@ -17,61 +17,61 @@ spec:
       containerConcurrency: 10
       timeoutSeconds: 900
       containers:
-      - image: gcr.io/climbing-application-458609/climbing-web-app-bolt
-        ports:
-        - name: h2c
-          containerPort: 8000
-        env:
-        - name: HTTP2_ENABLED
-          value: "true"
-        - name: MAX_REQUEST_SIZE
-          value: "104857600"
-        - name: GCS_BUCKET_NAME
-          value: "climbing-videos-bucket-climbing-application-458609"
-        - name: GEMINI_API_KEY
-          value: "AIzaSyB0C91yz1GUJ1BV9S7trwFWLrWn_tajcrc"
+        - image: gcr.io/climbing-application-458609/climbing-web-app-bolt
+          ports:
+            - name: h2c
+              containerPort: 8000
+          env:
+            - name: HTTP2_ENABLED
+              value: "true"
+            - name: MAX_REQUEST_SIZE
+              value: "104857600"
+                    - name: GCS_BUCKET_NAME
+          value: "your_gcs_bucket_name"
+                    - name: GEMINI_API_KEY
+          value: "your_gemini_api_key"
         - name: GOOGLE_API_KEY
-          value: "AIzaSyB0C91yz1GUJ1BV9S7trwFWLrWn_tajcrc"
+          value: "your_gemini_api_key"
 
-        - name: MEMORY_LIMIT
-          value: "4096M"
-        - name: REQUEST_TIMEOUT
-          value: "900"
-        - name: PHASE
-          value: "2"
-        - name: MAX_FILE_SIZE
-          value: "100MB"
-        - name: CHROMA_COLLECTION_NAME
-          value: "bouldering_advice"
-        - name: CHROMA_DB_URL
-          value: "https://chroma-service-932280363930.asia-northeast1.run.app"
-        - name: EMBEDDING_MODEL
-          value: "models/embedding-001"
-        - name: LOG_LEVEL
-          value: "INFO"
-        resources:
-          limits:
-            cpu: "2"
-            memory: "4Gi"
-          requests:
-            cpu: "1"
-            memory: "2Gi"
-        startupProbe:
-          httpGet:
-            path: /health
-            port: 8000
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 3
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8000
-          initialDelaySeconds: 30
-          periodSeconds: 30
-          timeoutSeconds: 5
-          failureThreshold: 3
+            - name: MEMORY_LIMIT
+              value: "4096M"
+            - name: REQUEST_TIMEOUT
+              value: "900"
+            - name: PHASE
+              value: "2"
+            - name: MAX_FILE_SIZE
+              value: "100MB"
+            - name: CHROMA_COLLECTION_NAME
+              value: "bouldering_advice"
+                    - name: CHROMA_DB_URL
+          value: "your_chromadb_url"
+            - name: EMBEDDING_MODEL
+              value: "models/embedding-001"
+            - name: LOG_LEVEL
+              value: "INFO"
+          resources:
+            limits:
+              cpu: "2"
+              memory: "4Gi"
+            requests:
+              cpu: "1"
+              memory: "2Gi"
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
   traffic:
-  - percent: 100
-    latestRevision: true 
+    - percent: 100
+      latestRevision: true
