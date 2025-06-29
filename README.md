@@ -1,4 +1,4 @@
-# climbing_web_app_bolt
+# AI Climbing Tokyo
 
 クライミング動画解析・トレーニング管理プラットフォーム ― **AI Climbing Tokyo** のソースコードです。最新機能（フル動画＋範囲指定分析）、多言語化、モバイル最適化、HTTP/2 対応など、全ての変更を統合した最新版 README です。
 
