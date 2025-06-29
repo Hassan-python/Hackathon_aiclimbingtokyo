@@ -39,7 +39,7 @@ flowchart TD
   end
   subgraph CloudRun[Cloud Run : FastAPI + Hypercorn]
     C[FastAPI アプリ]
-    C -->|アップロード| GCS[(GCS<br/>climbing-videos-bucket)]
+    C -->|アップロード| GCS[(GCS<br/>your-gcs-bucket)]
     C -->|チャット補助| CHROMA[(ChromaDB)]
     C -->|Gemini 呼び出し| GEMINI[(Google Gemini API)]
     C -->|Fallback| OPENAI[(OpenAI API)]
@@ -199,8 +199,8 @@ flowchart TD
 
 ```powershell
 # 1) クローン
-> git clone https://github.com/Hassan-python/climbing_web_app_bolt.git
-> cd climbing_web_app_bolt
+> git clone https://github.com/your-username/climbing-web-app.git
+> cd climbing-web-app
 
 # 2) 依存関係
 > npm ci         # or pnpm i / yarn
@@ -219,16 +219,16 @@ $env:PATH = [System.Environment]::GetEnvironmentVariable('PATH','Machine') + ';'
 
 ## 5. 環境変数 / シークレット 🔑
 
-| 変数               | 用途                                | 例                       | 備考                |
-| ------------------ | ----------------------------------- | ------------------------ | ------------------- |
-| `GCS_BUCKET_NAME`  | 動画保存用 GCS バケット名           | `climbing-videos-bucket` | Cloud Run 環境必須  |
-| `MAX_FILE_SIZE`    | サーバー側ファイルサイズ上限 (byte) | `104857600`              | 100 MB              |
-| `MEMORY_LIMIT`     | Hypercorn メモリ制限                | `4096M`                  | 4 GB                |
-| `REQUEST_TIMEOUT`  | API タイムアウト (s)                | `900`                    |
-| `HTTP2_ENABLED`    | HTTP/2 フラグ                       | `true`                   |
-| `PHASE`            | デプロイフェーズ                    | `2`                      | Blue-Green 等に使用 |
-| `CHROMA_DB_URL`\*  | ChromaDB 接続 URL                   | `https://...`            | Secret Manager      |
-| `GEMINI_API_KEY`\* | Gemini API キー                     | `AIz...`                 | Secret Manager      |
+| 変数               | 用途                                | 例                | 備考                |
+| ------------------ | ----------------------------------- | ----------------- | ------------------- |
+| `GCS_BUCKET_NAME`  | 動画保存用 GCS バケット名           | `your-gcs-bucket` | Cloud Run 環境必須  |
+| `MAX_FILE_SIZE`    | サーバー側ファイルサイズ上限 (byte) | `104857600`       | 100 MB              |
+| `MEMORY_LIMIT`     | Hypercorn メモリ制限                | `4096M`           | 4 GB                |
+| `REQUEST_TIMEOUT`  | API タイムアウト (s)                | `900`             |
+| `HTTP2_ENABLED`    | HTTP/2 フラグ                       | `true`            |
+| `PHASE`            | デプロイフェーズ                    | `2`               | Blue-Green 等に使用 |
+| `CHROMA_DB_URL`\*  | ChromaDB 接続 URL                   | `https://...`     | Secret Manager      |
+| `GEMINI_API_KEY`\* | Gemini API キー                     | `AIz...`          | Secret Manager      |
 
 `*` は **Google Secret Manager** を使用し `run services update --update-secrets` で注入します。
 
@@ -241,16 +241,16 @@ $env:PATH = [System.Environment]::GetEnvironmentVariable('PATH','Machine') + ';'
 ```bash
 cd gcp_config
 # Cloud Build でビルド & デプロイ (推奨)
-gcloud builds submit --config cloudbuild.yaml --project climbing-application-458609 .
+gcloud builds submit --config cloudbuild.yaml --project your-project-id .
 
 # もしくは PowerShell スクリプト
-./deploy-cloudbuild.ps1 -ProjectId climbing-application-458609
+./deploy-cloudbuild.ps1 -ProjectId your-project-id
 ```
 
 デプロイ後の確認:
 
 ```bash
-curl https://climbing-web-app-bolt-aqbqg2qzda-an.a.run.app/chroma-status
+curl https://your-service-url.run.app/chroma-status
 # {"status":"✅ ChromaDB(Langchain) 接続成功 ..."}
 ```
 
